@@ -18,27 +18,21 @@ const defaultData = {
 
 const themeConfig = {
     dark: {
-        background: 'https://i.imgur.com/pbVphtP.jpeg',
+        background: './bgmail.svg',
         nameColor: '#FFE211',
         textColor: '#FFFFFF',
         icons: {
-            phone: 'https://i.imgur.com/8QrlCi5.png',
-            web: 'https://i.imgur.com/ciXzWzR.png',
-            instagram: 'https://i.imgur.com/OcRfP7S.png',
-            facebook: 'https://i.imgur.com/cdr84ye.png',
-            x: 'https://i.imgur.com/XIGEmpr.png'
+            phone: './icons/phone.png',
+            web: './icons/web.png'
         }
     },
     light: {
-        background: 'https://i.imgur.com/QDIR9QC.jpeg',
+        background: './bgmailwhite.svg',
         nameColor: '#1C4235',
         textColor: '#525252',
         icons: {
-            phone: 'https://i.imgur.com/hyU2IF1.png',
-            web: 'https://i.imgur.com/bdreyp9.png',
-            instagram: 'https://i.imgur.com/pITkrTD.png',
-            facebook: 'https://i.imgur.com/JvyjtRS.png',
-            x: 'https://i.imgur.com/mn9mpUD.png'
+            phone: './iconswhite/phone.png',
+            web: './iconswhite/web.png'
         }
     }
 };
@@ -55,30 +49,21 @@ function updatePreview() {
     
     const previewContainer = document.getElementById('previewSignature');
     previewContainer.innerHTML = `
-        <div style="width: 500px; height: 150px; background-image: url('${theme.background}'); background-size: cover; background-position: center; background-repeat: no-repeat; font-family: Arial, sans-serif; padding: 32px 32px; display: flex; align-items: center; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-            <div style="width: 65%;">
-                <div style="font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; color: ${theme.nameColor}; margin: 0 0 4px 0; line-height: 1.1;">${fullName}</div>
-                <div style="font-family: Arial, sans-serif; font-size: 16px; color: ${theme.textColor}; margin: 0 0 16px 0; line-height: 1.2;">${position}</div>
+        <div style="position: relative; width: 500px; height: 150px; font-family: Arial, sans-serif; padding: 32px; display: flex; align-items: center; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); overflow: hidden;">
+            <img src="${theme.background}" alt="Background" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
+            <div style="width: 65%; position: relative; z-index: 2;">
+                <div style="font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; color: ${theme.nameColor}; margin: 0 0 4px 0; line-height: 1.1; text-shadow: 0 1px 2px rgba(0,0,0,0.3);">${fullName}</div>
+                <div style="font-family: Arial, sans-serif; font-size: 16px; color: ${theme.textColor}; margin: 0 0 16px 0; line-height: 1.2; text-shadow: 0 1px 2px rgba(0,0,0,0.2);">${position}</div>
                 <div style="margin: 0 0 16px 0; display: flex; align-items: center;">
                     <img src="${theme.icons.phone}" alt="Teléfono" style="width: 16px; height: 16px; margin-right: 8px;">
-                    <span style="font-family: Arial, sans-serif; color: ${theme.textColor}; font-size: 14px;">${contact}</span>
+                    <span style="font-family: Arial, sans-serif; color: ${theme.textColor}; font-size: 14px; text-shadow: 0 1px 2px rgba(0,0,0,0.2);">${contact}</span>
                 </div>
-                <div style="margin: 8px 0 0 0; display: flex; gap: 16px; align-items: center;">
-                    <a href="https://www.upcnecochea.com.ar" target="_blank" style="text-decoration: none;">
-                        <img src="${theme.icons.web}" alt="Web" style="width: 18px; height: 18px;">
-                    </a>
-                    <a href="https://www.instagram.com/upcnecochea/?hl=es" target="_blank" style="text-decoration: none;">
-                        <img src="${theme.icons.instagram}" alt="Instagram" style="width: 18px; height: 18px;">
-                    </a>
-                    <a href="https://www.facebook.com/p/UPC-Necochea-100063634868118/" target="_blank" style="text-decoration: none;">
-                        <img src="${theme.icons.facebook}" alt="Facebook" style="width: 18px; height: 18px;">
-                    </a>
-                    <a href="https://x.com/necocheaupc" target="_blank" style="text-decoration: none;">
-                        <img src="${theme.icons.x}" alt="X" style="width: 18px; height: 18px;">
-                    </a>
+                <div style="margin: 8px 0 0 0; display: flex; align-items: center;">
+                    <img src="${theme.icons.web}" alt="Web" style="width: 16px; height: 16px; margin-right: 8px;">
+                    <a href="https://www.upcnecochea.com.ar" target="_blank" style="font-family: Arial, sans-serif; color: ${theme.textColor}; font-size: 14px; text-decoration: none; text-shadow: 0 1px 2px rgba(0,0,0,0.2);">www.upcnecochea.com.ar</a>
                 </div>
             </div>
-            <div style="width: 35%; text-align: right;">
+            <div style="width: 35%; text-align: right; position: relative; z-index: 2;">
             </div>
         </div>
     `;
@@ -155,38 +140,134 @@ function generateSignatureHTML() {
 </table>`;
 }
 
+function createTempSignatureElement() {
+    const fullName = fullNameInput.value.trim() || defaultData.name;
+    const position = positionInput.value.trim() || defaultData.position;
+    const contact = contactInput.value.trim() || defaultData.contact;
+    
+    const theme = themeConfig[currentTheme];
+    
+    const tempDiv = document.createElement('div');
+    tempDiv.className = 'temp-signature';
+    tempDiv.style.cssText = `
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+        width: 500px;
+        height: 150px;
+        font-family: Arial, sans-serif;
+        padding: 32px;
+        display: flex;
+        align-items: center;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        overflow: hidden;
+    `;
+    
+    tempDiv.innerHTML = `
+        <img src="${theme.background}" alt="Background" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
+        <div style="width: 65%; position: relative; z-index: 2;">
+            <div style="font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; color: ${theme.nameColor}; margin: 0 0 4px 0; line-height: 1.1; text-shadow: 0 1px 2px rgba(0,0,0,0.3);">${fullName}</div>
+            <div style="font-family: Arial, sans-serif; font-size: 16px; color: ${theme.textColor}; margin: 0 0 16px 0; line-height: 1.2; text-shadow: 0 1px 2px rgba(0,0,0,0.2);">${position}</div>
+            <div style="margin: 0 0 16px 0; display: flex; align-items: center;">
+                <img src="${theme.icons.phone}" alt="Teléfono" style="width: 16px; height: 16px; margin-right: 8px;">
+                <span style="font-family: Arial, sans-serif; color: ${theme.textColor}; font-size: 14px; text-shadow: 0 1px 2px rgba(0,0,0,0.2);">${contact}</span>
+            </div>
+            <div style="margin: 8px 0 0 0; display: flex; align-items: center;">
+                <img src="${theme.icons.web}" alt="Web" style="width: 16px; height: 16px; margin-right: 8px;">
+                <a href="https://www.upcnecochea.com.ar" target="_blank" style="font-family: Arial, sans-serif; color: ${theme.textColor}; font-size: 14px; text-decoration: none; text-shadow: 0 1px 2px rgba(0,0,0,0.2);">www.upcnecochea.com.ar</a>
+            </div>
+        </div>
+        <div style="width: 35%; text-align: right; position: relative; z-index: 2;">
+        </div>
+    `;
+    
+    return tempDiv;
+}
 
-
-
-async function copyHtmlSignature() {
+async function copySignatureImage() {
     try {
-        const signatureHTML = generateSignatureHTML();
+        showAlert('🔄 Generando imagen...', 'info');
         
-
-        if (navigator.clipboard) {
-            await navigator.clipboard.writeText(signatureHTML);
-            showAlert('✓ Firma HTML copiada al portapapeles', 'success');
-        } else {
-
-            const textArea = document.createElement('textarea');
-            textArea.value = signatureHTML;
-            textArea.style.position = 'absolute';
-            textArea.style.left = '-9999px';
-            document.body.appendChild(textArea);
-            textArea.select();
-            const success = document.execCommand('copy');
-            document.body.removeChild(textArea);
-            
-            if (success) {
-                showAlert('✓ Firma HTML copiada al portapapeles', 'success');
-            } else {
-                throw new Error('execCommand failed');
-            }
+        const previewElement = document.getElementById('previewSignature');
+        
+        if (!previewElement || !previewElement.firstElementChild) {
+            throw new Error('No hay vista previa para generar');
         }
+
+        // Crear un elemento temporal optimizado para captura
+        const tempElement = createTempSignatureElement();
+        document.body.appendChild(tempElement);
+        
+        // Esperar un momento para que las imágenes se carguen
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        const canvas = await html2canvas(tempElement, {
+            backgroundColor: null,
+            scale: 4,
+            useCORS: false,
+            allowTaint: false,
+            foreignObjectRendering: false,
+            logging: false,
+            width: 500,
+            height: 150,
+            removeContainer: false,
+            imageTimeout: 2000,
+            svgRendering: true,
+            ignoreElements: function(element) {
+                return false;
+            }
+        });
+
+        canvas.toBlob(async function(blob) {
+            // Limpiar elemento temporal
+            if (tempElement && document.body.contains(tempElement)) {
+                document.body.removeChild(tempElement);
+            }
+            
+            if (!blob) {
+                throw new Error('Error al generar la imagen');
+            }
+
+            try {
+                if (navigator.clipboard && ClipboardItem) {
+                    const clipboardItem = new ClipboardItem({ 'image/png': blob });
+                    await navigator.clipboard.write([clipboardItem]);
+                    showAlert('✓ Imagen de firma copiada al portapapeles', 'success');
+                } else {
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = 'firma-upc-necochea.png';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                    showAlert('✓ Imagen descargada (copiar manualmente)', 'warning');
+                }
+            } catch (clipboardError) {
+                console.error('Error al copiar al portapapeles:', clipboardError);
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'firma-upc-necochea.png';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+                showAlert('✓ Imagen descargada (copiar manualmente)', 'warning');
+            }
+        }, 'image/png');
         
     } catch (error) {
-        console.error('Error al copiar HTML:', error);
-        showAlert('❌ Error al copiar HTML', 'error');
+        console.error('Error al generar imagen:', error);
+        showAlert('❌ Error al generar imagen: ' + error.message, 'error');
+        
+        // Limpiar elemento temporal en caso de error
+        const tempElement = document.querySelector('.temp-signature');
+        if (tempElement && document.body.contains(tempElement)) {
+            document.body.removeChild(tempElement);
+        }
     }
 }
 
@@ -304,13 +385,13 @@ function cleanPhoneInput(event) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    const copyHtmlButton = document.getElementById('copyHtmlButton');
+    const copyImageButton = document.getElementById('copyImageButton');
     const themeToggle = document.getElementById('themeToggle');
 
     fullNameInput.addEventListener('input', updatePreview);
     positionInput.addEventListener('input', updatePreview);
     contactInput.addEventListener('input', updatePreview);
-    copyHtmlButton.addEventListener('click', copyHtmlSignature);
+    copyImageButton.addEventListener('click', copySignatureImage);
     themeToggle.addEventListener('change', toggleTheme);
     contactInput.addEventListener('keypress', validatePhoneInput);
     contactInput.addEventListener('input', cleanPhoneInput);
@@ -329,17 +410,17 @@ function validateForm() {
                    positionInput.value.trim() && 
                    contactInput.value.trim();
     
-    const copyHtmlButton = document.getElementById('copyHtmlButton');
+    const copyImageButton = document.getElementById('copyImageButton');
     
 
-    if (copyHtmlButton) {
-        copyHtmlButton.disabled = !isValid;
+    if (copyImageButton) {
+        copyImageButton.disabled = !isValid;
         if (isValid) {
-            copyHtmlButton.style.opacity = '1';
-            copyHtmlButton.style.cursor = 'pointer';
+            copyImageButton.style.opacity = '1';
+            copyImageButton.style.cursor = 'pointer';
         } else {
-            copyHtmlButton.style.opacity = '0.6';
-            copyHtmlButton.style.cursor = 'not-allowed';
+            copyImageButton.style.opacity = '0.6';
+            copyImageButton.style.cursor = 'not-allowed';
         }
     }
 }
