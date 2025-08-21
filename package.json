@@ -1,0 +1,28 @@
+{
+  "name": "generador-firmas-upc",
+  "version": "1.0.0",
+  "description": "Generador de firmas de email para UPC Necochea",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "start:win": "python -m http.server 8000",
+    "start:node": "npx http-server . -p 8000 -o",
+    "deploy": "echo 'Ready for deployment to static hosting service'"
+  },
+  "keywords": [
+    "email",
+    "signature",
+    "generator",
+    "upc",
+    "necochea"
+  ],
+  "author": "UPC Necochea",
+  "license": "MIT",
+  "homepage": "https://github.com/upc-necochea/firmasupc",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/upc-necochea/firmasupc.git"
+  },
+  "devDependencies": {},
+  "dependencies": {}
+}

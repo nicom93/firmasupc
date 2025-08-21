@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Firmas UPC Necochea</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="shortcut icon" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;700&family=Kumbh+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <div class="header-logo-section">
+                    <img src="logoupc--white.svg" alt="UPC Necochea" class="header-logo">
+                </div>
+                <div class="header-text-section">
+                    <h1 class="header-title">Generador de Firmas</h1>
+                    <p class="header-subtitle">UPC Necochea</p>
+                </div>
+            </div>
+        </header>
+
+        <div class="content">
+            <div class="form-section">
+                <h2>Datos para la Firma</h2>
+                <form id="signatureForm" class="signature-form">
+                    <div class="form-group">
+                        <label for="fullName">Nombre y Apellido *</label>
+                        <input type="text" id="fullName" name="fullName" placeholder="Ej: Juan Pérez" maxlength="27" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="position">Puesto/Sector *</label>
+                        <input type="text" id="position" name="position" placeholder="Ej: Gerente de Ventas" maxlength="26" required>
+                    </div>
+                    
+
+                    
+                    <div class="form-group">
+                        <label for="contact">Teléfono/Interno *</label>
+                        <input type="text" id="contact" name="contact" placeholder="Ej: +54 123 4567" maxlength="20" required>
+                    </div>
+                </form>
+            </div>
+
+            <div class="preview-section">
+                <div class="preview-header">
+                    <h2>Vista Previa de la Firma</h2>
+                    <div class="theme-toggle-container">
+                        <label class="theme-toggle">
+                            <input type="checkbox" id="themeToggle">
+                            <span class="slider">
+                                <span class="slider-icon dark">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="#FFFFFF"/>
+                                    </svg>
+                                </span>
+                                <span class="slider-icon light">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                                        <circle cx="12" cy="12" r="5" fill="#1C4235"/>
+                                        <line x1="12" y1="1" x2="12" y2="3" stroke="#1C4235" stroke-width="2" stroke-linecap="round"/>
+                                        <line x1="12" y1="21" x2="12" y2="23" stroke="#1C4235" stroke-width="2" stroke-linecap="round"/>
+                                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="#1C4235" stroke-width="2" stroke-linecap="round"/>
+                                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="#1C4235" stroke-width="2" stroke-linecap="round"/>
+                                        <line x1="1" y1="12" x2="3" y2="12" stroke="#1C4235" stroke-width="2" stroke-linecap="round"/>
+                                        <line x1="21" y1="12" x2="23" y2="12" stroke="#1C4235" stroke-width="2" stroke-linecap="round"/>
+                                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="#1C4235" stroke-width="2" stroke-linecap="round"/>
+                                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="#1C4235" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                </span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="signature-preview">
+                    <div id="previewSignature">
+                    </div>
+                </div>
+                
+                <div class="actions">
+                    <button type="button" id="copyHtmlButton" class="copy-html-button single-button">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="16,18 22,12 16,6"></polyline>
+                            <polyline points="8,6 2,12 8,18"></polyline>
+                        </svg>
+                        Copiar Firma
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="alertContainer" class="alert-container" style="position: fixed !important; top: 20px !important; right: 20px !important; z-index: 9999 !important; pointer-events: none !important; display: block !important;"></div>
+
+    <footer class="footer">
+        <div class="footer-line"></div>
+    </footer>
+
+    <script src="script.js?v=6.6"></script>
+</body>
+</html>
