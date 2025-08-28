@@ -3,6 +3,7 @@ const form = document.getElementById('signatureForm');
 const fullNameInput = document.getElementById('fullName');
 const positionInput = document.getElementById('position');
 const contactInput = document.getElementById('contact');
+const logoSelect = document.getElementById('logoSelect');
 
 
 const previewName = document.querySelector('.full-name');
@@ -37,21 +38,59 @@ const themeConfig = {
     }
 };
 
-let currentTheme = 'dark';
+const logoConfig = {
+    'main-upc': {
+        normal: './logos/main-upc.svg',
+        white: './logos/main-upc-white.svg',
+        name: 'UPC Principal'
+    },
+    'usina-energia': {
+        normal: './logos/usina-energia.svg',
+        white: './logos/usina-energia-white.svg',
+        name: 'Usina Energía'
+    },
+    'usina-fundacion': {
+        normal: './logos/usina-fundacion.svg',
+        white: './logos/usina-fundacion-white.svg',
+        name: 'Usina Fundación'
+    },
+    'usina-internet': {
+        normal: './logos/usina-internet.svg',
+        white: './logos/usina-internet-white.svg',
+        name: 'Usina Internet'
+    },
+    'usina-salud': {
+        normal: './logos/usina-salud.svg',
+        white: './logos/usina-salud-white.svg',
+        name: 'Usina Salud'
+    },
+    'usina-sepelios': {
+        normal: './logos/usina-sepelios.svg',
+        white: './logos/usina-sepelios-white.svg',
+        name: 'Usina Sepelios'
+    }
+};
 
+let currentTheme = 'dark';
+let currentLogo = 'main-upc';
+
+function getCurrentLogoURL() {
+    const logo = logoConfig[currentLogo];
+    return currentTheme === 'dark' ? logo.white : logo.normal;
+}
 
 function updatePreview() {
     const fullName = fullNameInput.value.trim() || defaultData.name;
     const position = positionInput.value.trim() || defaultData.position;
     const contact = contactInput.value.trim() || defaultData.contact;
-    
+
     const theme = themeConfig[currentTheme];
     
     const previewContainer = document.getElementById('previewSignature');
     previewContainer.innerHTML = `
-        <div style="position: relative; width: 500px; height: 150px; font-family: Arial, sans-serif; padding: 32px; display: flex; align-items: center; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); overflow: hidden;">
+        <div style="position: relative; width: 500px; height: 170px; font-family: Arial, sans-serif; padding: 32px; display: flex; align-items: center; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); overflow: hidden;">
             <img src="${theme.background}" alt="Background" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
-            <div style="width: 65%; position: relative; z-index: 2;">
+            <div style="width: 60%; position: relative; z-index: 2;">
                 <div style="font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; color: ${theme.nameColor}; margin: 0 0 4px 0; line-height: 1.1; text-shadow: 0 1px 2px rgba(0,0,0,0.3);">${fullName}</div>
                 <div style="font-family: Arial, sans-serif; font-size: 16px; color: ${theme.textColor}; margin: 0 0 16px 0; line-height: 1.2; text-shadow: 0 1px 2px rgba(0,0,0,0.2);">${position}</div>
                 <div style="margin: 0 0 16px 0; display: flex; align-items: center;">
@@ -63,7 +102,8 @@ function updatePreview() {
                     <a href="https://www.upcnecochea.com.ar" target="_blank" style="font-family: Arial, sans-serif; color: ${theme.textColor}; font-size: 14px; text-decoration: none; text-shadow: 0 1px 2px rgba(0,0,0,0.2);">www.upcnecochea.com.ar</a>
                 </div>
             </div>
-            <div style="width: 35%; text-align: right; position: relative; z-index: 2;">
+            <div style="width: 40%; text-align: right; position: relative; z-index: 2;">
+                <img src="${getCurrentLogoURL()}" alt="${logoConfig[currentLogo].name}" style="max-width: 170px; object-fit: contain;">
             </div>
         </div>
     `;
@@ -88,12 +128,12 @@ function generateSignatureHTML() {
     
     const theme = themeConfig[currentTheme];
     
-    return `<table cellpadding="0" cellspacing="0" border="0" style="width: 500px; height: 150px; background-image: url('${theme.background}'); background-size: cover; background-position: center; background-repeat: no-repeat; font-family: Arial, sans-serif;">
+    return `<table cellpadding="0" cellspacing="0" border="0" style="width: 500px; height: 170px; background-image: url('${theme.background}'); background-size: cover; background-position: center; background-repeat: no-repeat; font-family: Arial, sans-serif;">
 <tr>
     <td style="padding: 32px 32px; vertical-align: middle;">
         <table cellpadding="0" cellspacing="0" border="0" style="width: 100%; height: 100%;">
         <tr>
-            <td style="vertical-align: middle; width: 65%;">
+            <td style="vertical-align: middle; width: 60%;">
                 <div style="font-family: Arial, sans-serif; font-size: 20px; font-weight: bold; color: ${theme.nameColor}; margin: 0 0 4px 0; line-height: 1.1;">${fullName}</div>
                 <div style="font-family: Arial, sans-serif; font-size: 16px; color: ${theme.textColor}; margin: 0 0 16px 0; line-height: 1.2;">${position}</div>
                 <table cellpadding="0" cellspacing="0" border="0" style="margin: 0 0 16px 0;">
@@ -131,7 +171,8 @@ function generateSignatureHTML() {
                 </tr>
                 </table>
             </td>
-            <td style="vertical-align: middle; text-align: right; width: 35%;">
+            <td style="vertical-align: middle; text-align: right; width:40%;">
+                <img src="${getCurrentLogoURL()}" alt="${logoConfig[currentLogo].name}" style="max-width: 120px; max-height: 60px; object-fit: contain;">
             </td>
         </tr>
         </table>
@@ -154,7 +195,7 @@ function createTempSignatureElement() {
         top: -9999px;
         left: -9999px;
         width: 500px;
-        height: 150px;
+        height: 170px;
         font-family: Arial, sans-serif;
         padding: 32px;
         display: flex;
@@ -166,7 +207,7 @@ function createTempSignatureElement() {
     
     tempDiv.innerHTML = `
         <img src="${theme.background}" alt="Background" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
-        <div style="width: 65%; position: relative; z-index: 2;">
+        <div style="width: 60%; position: relative; z-index: 2;">
             <div style="font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; color: ${theme.nameColor}; margin: 0 0 4px 0; line-height: 1.1; text-shadow: 0 1px 2px rgba(0,0,0,0.3);">${fullName}</div>
             <div style="font-family: Arial, sans-serif; font-size: 16px; color: ${theme.textColor}; margin: 0 0 16px 0; line-height: 1.2; text-shadow: 0 1px 2px rgba(0,0,0,0.2);">${position}</div>
             <div style="margin: 0 0 16px 0; display: flex; align-items: center;">
@@ -178,7 +219,8 @@ function createTempSignatureElement() {
                 <a href="https://www.upcnecochea.com.ar" target="_blank" style="font-family: Arial, sans-serif; color: ${theme.textColor}; font-size: 14px; text-decoration: none; text-shadow: 0 1px 2px rgba(0,0,0,0.2);">www.upcnecochea.com.ar</a>
             </div>
         </div>
-        <div style="width: 35%; text-align: right; position: relative; z-index: 2;">
+        <div style="width: 40%; text-align: right; position: relative; z-index: 2;">
+            <img src="${getCurrentLogoURL()}" alt="${logoConfig[currentLogo].name}" style="max-width: 160px; max-height: 80px; object-fit: contain;">
         </div>
     `;
     
@@ -200,23 +242,30 @@ async function copySignatureImage() {
         document.body.appendChild(tempElement);
         
         // Esperar un momento para que las imágenes se carguen
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise(resolve => setTimeout(resolve, 1000));
         
         const canvas = await html2canvas(tempElement, {
             backgroundColor: null,
             scale: 4,
-            useCORS: false,
-            allowTaint: false,
+            useCORS: true,
+            allowTaint: true,
             foreignObjectRendering: false,
             logging: false,
             width: 500,
-            height: 150,
+            height: 170,
             removeContainer: false,
-            imageTimeout: 2000,
+            imageTimeout: 3000,
             svgRendering: true,
             ignoreElements: function(element) {
                 return false;
-            }
+            },
+            scrollX: 0,
+            scrollY: 0,
+            windowWidth: 500,
+            windowHeight: 170,
+            x: 0,
+            y: 0,
+            letterRendering: true
         });
 
         canvas.toBlob(async function(blob) {
@@ -346,6 +395,11 @@ function showAlert(message, type = 'success') {
 }
 
 
+function handleLogoChange() {
+    currentLogo = logoSelect.value;
+    updatePreview();
+}
+
 function toggleTheme() {
     const themeToggle = document.getElementById('themeToggle');
     currentTheme = themeToggle.checked ? 'light' : 'dark';
@@ -391,6 +445,7 @@ document.addEventListener('DOMContentLoaded', function() {
     fullNameInput.addEventListener('input', updatePreview);
     positionInput.addEventListener('input', updatePreview);
     contactInput.addEventListener('input', updatePreview);
+    logoSelect.addEventListener('change', handleLogoChange);
     copyImageButton.addEventListener('click', copySignatureImage);
     themeToggle.addEventListener('change', toggleTheme);
     contactInput.addEventListener('keypress', validatePhoneInput);
@@ -399,6 +454,13 @@ document.addEventListener('DOMContentLoaded', function() {
     fullNameInput.addEventListener('input', validateForm);
     positionInput.addEventListener('input', validateForm);
     contactInput.addEventListener('input', validateForm);
+    logoSelect.addEventListener('change', validateForm);
+
+    // Initialize logo select
+    logoSelect.value = currentLogo;
+
+    // Initialize theme toggle to match currentTheme
+    themeToggle.checked = currentTheme === 'light';
 
     validateForm();
     updatePreview();

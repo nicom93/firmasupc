@@ -36,16 +36,28 @@
                         <input type="text" id="fullName" name="fullName" placeholder="Ej: Juan Pérez" maxlength="27" required>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="position">Puesto/Sector *</label>
-                        <input type="text" id="position" name="position" placeholder="Ej: Gerente de Ventas" maxlength="26" required>
-                    </div>
-                    
+                    <div class="form-row">
+                        <div class="form-group-half">
+                            <label for="position">Puesto/Sector *</label>
+                            <input type="text" id="position" name="position" placeholder="Ej: Gerente de Ventas" maxlength="26" required>
+                        </div>
 
-                    
+                        <div class="form-group-half">
+                            <label for="contact">Teléfono/Interno *</label>
+                            <input type="text" id="contact" name="contact" placeholder="Ej: +54 123 4567" maxlength="20" required>
+                        </div>
+                    </div>
+
                     <div class="form-group">
-                        <label for="contact">Teléfono/Interno *</label>
-                        <input type="text" id="contact" name="contact" placeholder="Ej: +54 123 4567" maxlength="20" required>
+                        <label for="logoSelect">Unidad de Negocio *</label>
+                        <select id="logoSelect" name="logoSelect" required>
+                            <option value="main-upc" selected>UPC Principal</option>
+                            <option value="usina-energia">Usina Energía</option>
+                            <option value="usina-fundacion">Usina Fundación</option>
+                            <option value="usina-internet">Usina Internet</option>
+                            <option value="usina-salud">Usina Salud</option>
+                            <option value="usina-sepelios">Usina Sepelios</option>
+                        </select>
                     </div>
                 </form>
             </div>
@@ -105,6 +117,6 @@
         <div class="footer-line"></div>
     </footer>
 
-    <script src="script.js?v=7.5"></script>
+    <script src="script.js?v=7.9"></script>
 </body>
 </html>
