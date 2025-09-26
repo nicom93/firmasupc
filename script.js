@@ -406,18 +406,7 @@ function toggleTheme() {
     updatePreview();
 }
 
-function validatePhoneInput(event) {
-    const char = String.fromCharCode(event.which);
-    const isNumber = /[0-9]/.test(char);
-    const isSpace = char === ' ';
-    const isPlus = char === '+';
-    const isValidChar = isNumber || isSpace || isPlus;
-    
-    if (!isValidChar) {
-        event.preventDefault();
-        return false;
-    }
-    
+function validateContactInput(event) {
     const currentValue = event.target.value;
     if (currentValue.length >= 20 && !event.ctrlKey && !event.metaKey) {
         event.preventDefault();
@@ -427,10 +416,9 @@ function validatePhoneInput(event) {
     return true;
 }
 
-function cleanPhoneInput(event) {
+function cleanContactInput(event) {
     const input = event.target;
-    const cleaned = input.value.replace(/[^0-9\s+]/g, '');
-    const truncated = cleaned.substring(0, 20);
+    const truncated = input.value.substring(0, 20);
     
     if (input.value !== truncated) {
         input.value = truncated;
@@ -448,8 +436,8 @@ document.addEventListener('DOMContentLoaded', function() {
     logoSelect.addEventListener('change', handleLogoChange);
     copyImageButton.addEventListener('click', copySignatureImage);
     themeToggle.addEventListener('change', toggleTheme);
-    contactInput.addEventListener('keypress', validatePhoneInput);
-    contactInput.addEventListener('input', cleanPhoneInput);
+    contactInput.addEventListener('keypress', validateContactInput);
+    contactInput.addEventListener('input', cleanContactInput);
 
     fullNameInput.addEventListener('input', validateForm);
     positionInput.addEventListener('input', validateForm);
