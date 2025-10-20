@@ -40,33 +40,33 @@ const themeConfig = {
 
 const logoConfig = {
     'main-upc': {
-        normal: './logos/main-upc.svg',
-        white: './logos/main-upc-white.svg',
+        normal: './logos/main-upc.png',
+        white: './logos/main-upc-white.png',
         name: 'UPC Principal'
     },
     'usina-energia': {
-        normal: './logos/usina-energia.svg',
-        white: './logos/usina-energia-white.svg',
+        normal: './logos/usina-energia.png',
+        white: './logos/usina-energia-white.png',
         name: 'Usina Energía'
     },
     'usina-fundacion': {
-        normal: './logos/usina-fundacion.svg',
-        white: './logos/usina-fundacion-white.svg',
+        normal: './logos/usina-fundacion.png',
+        white: './logos/usina-fundacion-white.png',
         name: 'Usina Fundación'
     },
     'usina-internet': {
-        normal: './logos/usina-internet.svg',
-        white: './logos/usina-internet-white.svg',
+        normal: './logos/usina-internet.png',
+        white: './logos/usina-internet-white.png',
         name: 'Usina Internet'
     },
     'usina-salud': {
-        normal: './logos/usina-salud.svg',
-        white: './logos/usina-salud-white.svg',
+        normal: './logos/usina-salud.png',
+        white: './logos/usina-salud-white.png',
         name: 'Usina Salud'
     },
     'usina-sepelios': {
-        normal: './logos/usina-sepelios.svg',
-        white: './logos/usina-sepelios-white.svg',
+        normal: './logos/usina-sepelios.png',
+        white: './logos/usina-sepelios-white.png',
         name: 'Usina Sepelios'
     }
 };
